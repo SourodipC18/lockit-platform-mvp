@@ -18,7 +18,15 @@ export default function AccessPage() {
       if (response.ok) setBooking(await response.json())
       else setError('This access link is not valid.')
     }
-    void load()
+    const startFromScan = async () => {
+      await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'start', id }),
+      })
+      await load()
+    }
+    void startFromScan()
     const poll = window.setInterval(load, 5000)
     const tick = window.setInterval(() => setNow(Date.now()), 1000)
     return () => { window.clearInterval(poll); window.clearInterval(tick) }

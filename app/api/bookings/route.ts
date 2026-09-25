@@ -7,11 +7,24 @@ export async function POST(request: Request) {
   const body = await request.json()
   const { action = 'create', id, location, lockerSize, hours, name, email } = body
 
-  if (action === 'approve') {
+  if (action === 'approve' || action === 'start') {
     if (!id) return NextResponse.json({ error: 'Booking ID is required' }, { status: 400 })
     const result = await pool.query(
       'UPDATE lockit_bookings SET status = $1, confirmed_at = COALESCE(confirmed_at, NOW()) WHERE id = $2 RETURNING id, status, confirmed_at AS "confirmedAt", access_code AS "accessCode"',
       ['confirmed', id],
+    )
+    if (!result.rows[0]) return NextResponse.json({ error: 'Booking not found' }, { status: 404 })
+    return NextResponse.json(result.rows[0])
+  }
+
+  if (action === 'sync-overtime') {
+    if (!id) return NextResponse.json({ error: 'Booking ID is required' }, { status: 400 })
+    const result = await pool.query(
+      `UPDATE lockit_bookings
+       SET overtime_fee_cents = GREATEST(0, CEIL(EXTRACT(EPOCH FROM (NOW() - confirmed_at)) / 3600)::int) * 200
+       WHERE id = $1 AND status = 'confirmed' AND confirmed_at IS NOT NULL
+       RETURNING id, overtime_fee_cents AS "overtimeFeeCents"`,
+      [id],
     )
     if (!result.rows[0]) return NextResponse.json({ error: 'Booking not found' }, { status: 404 })
     return NextResponse.json(result.rows[0])

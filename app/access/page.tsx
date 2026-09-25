@@ -32,6 +32,18 @@ export default function AccessPage() {
     }
     const startFromScan = async () => {
       const current = await load()
+      const action = new URLSearchParams(window.location.search).get('action')
+      if (action === 'close') {
+        if (current?.status === 'confirmed') {
+          await fetch('/api/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'close', id }),
+          })
+          await load()
+        }
+        return
+      }
       if (current?.status !== 'confirmed') {
         await fetch('/api/bookings', {
           method: 'POST',

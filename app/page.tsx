@@ -46,7 +46,8 @@ export default function Page() {
     if (response.ok) { setBooking(await response.json()); setBookingStep(2) }
     setIsSaving(false)
   }
-  const copyCode = async () => { if (!booking) return; await navigator.clipboard?.writeText(booking.accessCode); setCopied(true); window.setTimeout(() => setCopied(false), 1600) }
+  const accessUrl = booking && typeof window !== 'undefined' ? `${window.location.origin}/access?id=${encodeURIComponent(booking.id)}` : ''
+  const copyCode = async () => { if (!booking) return; await navigator.clipboard?.writeText(accessUrl); setCopied(true); window.setTimeout(() => setCopied(false), 1600) }
 
   return <main className="min-h-screen overflow-hidden bg-[#f4f4ed] text-[#181818]">
     <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-8 md:py-7"><a href="#top" className="flex items-center gap-2 text-lg font-black tracking-[-0.08em]"><span className="flex size-7 items-center justify-center rounded-full bg-[#dfff00]"><LockKeyhole className="size-4" /></span>LOCKIT</a><div className="hidden items-center gap-8 text-sm font-semibold md:flex"><a href="#how-it-works">How it works</a><a href="#locations">Locations</a><a href="#hosts">For hosts</a></div><div className="hidden items-center gap-3 md:flex"><a href="#locations" className="rounded-full bg-[#181818] px-5 py-3 text-sm font-semibold text-white">Find a locker <ArrowRight className="ml-2 inline size-4" /></a></div><button onClick={() => setMenuOpen(!menuOpen)} className="rounded-full p-2 md:hidden" aria-label="Toggle menu">{menuOpen ? <X /> : <Menu />}</button></nav>

@@ -21,7 +21,7 @@ export default function Page() {
   const [selected, setSelected] = useState<Location | null>(null)
   const [bookingStep, setBookingStep] = useState<0 | 1 | 2>(0)
   const [booking, setBooking] = useState<Booking | null>(null)
-  const [form, setForm] = useState({ lockerSize: 'Medium', hours: '3', name: '' })
+  const [form, setForm] = useState({ lockerSize: 'Medium', hours: '3', name: 'Guest' })
   const [isSaving, setIsSaving] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -38,9 +38,9 @@ export default function Page() {
   }, [booking?.id, booking?.status])
 
   const selectedPrice = useMemo(() => Number(selected?.price.replace('€', '').replace(',', '.') || 0) * Number(form.hours), [selected, form.hours])
-  const openBooking = (location: Location) => { setSelected(location); setBookingStep(1); setBooking(null); setForm({ lockerSize: 'Medium', hours: '3', name: '' }) }
+  const openBooking = (location: Location) => { setSelected(location); setBookingStep(1); setBooking(null); setForm({ lockerSize: 'Medium', hours: '3', name: 'Guest' }) }
   const createBooking = async () => {
-    if (!selected || !form.name.trim()) return
+    if (!selected) return
     setIsSaving(true)
     const response = await fetch('/api/bookings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'create', location: selected.name, lockerSize: form.lockerSize, hours: form.hours, name: form.name }) })
     if (response.ok) {

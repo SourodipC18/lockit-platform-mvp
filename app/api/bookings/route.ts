@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     return NextResponse.json(result.rows[0])
   }
 
-  if (!location || !lockerSize || !hours || !name) {
+  if (!location || !lockerSize || !hours) {
     return NextResponse.json({ error: 'Please complete all booking details' }, { status: 400 })
   }
 
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
   const accessCode = Math.floor(100000 + Math.random() * 900000).toString()
   const result = await pool.query(
     'INSERT INTO lockit_bookings (id, location, locker_size, hours, customer_name, customer_email, access_code) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, location, locker_size AS "lockerSize", hours, customer_name AS "name", customer_email AS "email", status, confirmed_at AS "confirmedAt", overtime_fee_cents AS "overtimeFeeCents", access_code AS "accessCode", created_at AS "createdAt", (current_database()) AS "database"',
-    [bookingId, location, lockerSize, Number(hours), name.trim(), email?.trim().toLowerCase() || '', accessCode],
+    [bookingId, location, lockerSize, Number(hours), name?.trim() || 'Guest', email?.trim().toLowerCase() || '', accessCode],
   )
   return NextResponse.json(result.rows[0], { status: 201 })
 }

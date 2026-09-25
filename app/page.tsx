@@ -1,47 +1,91 @@
+'use client'
+
+import { useState } from 'react'
+import {
+  ArrowRight,
+  ChevronDown,
+  Clock3,
+  LockKeyhole,
+  MapPin,
+  Menu,
+  Navigation,
+  ShieldCheck,
+  Sparkles,
+  X,
+} from 'lucide-react'
+
+const locations = [
+  { name: 'City Centre', distance: '120 m', available: 4, price: '€2', tone: 'bg-[#dfff00]' },
+  { name: 'Central Station', distance: '0.4 km', available: 12, price: '€2', tone: 'bg-[#dfff00]' },
+  { name: 'Riverside', distance: '0.8 km', available: 0, price: '€1.50', tone: 'bg-[#d7d6ce]' },
+]
+
+const faqs = [
+  ['How long can I store my belongings?', 'Book a locker by the hour, day, or longer. Your access window is always clear before you pay.'],
+  ['Are the lockers safe?', 'Every LOCKIT location is monitored, and each booking gets a unique access code that only works during your reservation.'],
+  ['Can I extend my booking?', 'Yes. Extend from your active booking in a few taps, subject to availability at your location.'],
+]
+
 export default function Page() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
+
   return (
-    <main
-      style={{
-        colorScheme: 'light dark',
-        position: 'relative',
-        display: 'flex',
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'light-dark(#fff, #000)',
-        color: 'light-dark(#000, #fff)',
-      }}
-    >
-      <svg
-        aria-hidden="true"
-        style={{ width: 80, height: 80 }}
-        width={80}
-        height={80}
-        fill="none"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke="currentColor"
-        strokeWidth="0.5"
-      >
-        <path
-          d="M14.2 14.2H17V6.9375C17 4.76288 15.2371 3 13.0625 3H5.8V5.8M14.2 14.2V7.79063L7.79062 14.2H14.2ZM14.2 14.2V17H6.9375C4.76288 17 3 15.2371 3 13.0625V5.8H5.8M5.8 5.8V12.2313L12.2313 5.8H5.8Z"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <p
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: 'calc(50% + 56px)',
-          transform: 'translateX(-50%)',
-          whiteSpace: 'nowrap',
-          fontSize: '14px',
-          fontWeight: 500,
-          color: 'light-dark(#71717a, #a1a1aa)',
-        }}
-      >
-        Your v0 generation will show here.
-      </p>
+    <main className="min-h-screen overflow-hidden bg-[#f4f4ed] text-[#181818]">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-8 md:py-7">
+        <a href="#top" className="flex items-center gap-2 text-lg font-black tracking-[-0.08em]" aria-label="LOCKIT home">
+          <span className="flex size-7 items-center justify-center rounded-full bg-[#dfff00]"><LockKeyhole className="size-4" strokeWidth={2.5} /></span>
+          LOCKIT
+        </a>
+        <div className="hidden items-center gap-8 text-sm font-semibold md:flex">
+          <a href="#how-it-works" className="transition-opacity hover:opacity-60">How it works</a>
+          <a href="#locations" className="transition-opacity hover:opacity-60">Locations</a>
+          <a href="#hosts" className="transition-opacity hover:opacity-60">For hosts</a>
+        </div>
+        <div className="hidden items-center gap-3 md:flex">
+          <button className="rounded-full px-4 py-2.5 text-sm font-semibold transition-colors hover:bg-black/5">Log in</button>
+          <a href="#locations" className="rounded-full bg-[#181818] px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5">Find a locker <ArrowRight className="ml-2 inline size-4" /></a>
+        </div>
+        <button onClick={() => setMenuOpen(!menuOpen)} className="rounded-full p-2 md:hidden" aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
+          {menuOpen ? <X /> : <Menu />}
+        </button>
+      </nav>
+      {menuOpen && <div className="mx-5 flex flex-col gap-5 rounded-3xl bg-white p-6 shadow-xl md:hidden"><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="#locations" onClick={() => setMenuOpen(false)}>Locations</a><a href="#hosts" onClick={() => setMenuOpen(false)}>For hosts</a><a href="#locations" className="rounded-full bg-[#181818] px-5 py-3 text-center font-semibold text-white">Find a locker</a></div>}
+
+      <section id="top" className="mx-auto grid max-w-7xl gap-12 px-5 pb-20 pt-10 md:grid-cols-[1.03fr_.97fr] md:items-center md:px-8 md:pb-28 md:pt-20">
+        <div>
+          <div className="mb-7 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#6e6e64]"><span className="size-2 rounded-full bg-[#dfff00]" /> Secure urban storage</div>
+          <h1 className="max-w-3xl text-[clamp(3.6rem,8vw,7.5rem)] font-black leading-[.84] tracking-[-0.085em]">Move freely.<br /><span className="text-[#929288]">Leave your stuff</span><br />with us.</h1>
+          <p className="mt-8 max-w-md text-lg leading-relaxed text-[#64645c]">A secure locker wherever you move. Drop your bags, keep exploring, and get your time back.</p>
+          <div className="mt-9 flex flex-wrap items-center gap-3"><a href="#locations" className="rounded-full bg-[#181818] px-6 py-4 text-sm font-bold text-white transition-transform hover:-translate-y-1">Find a locker <ArrowRight className="ml-2 inline size-4" /></a><a href="#how-it-works" className="rounded-full border border-black/15 px-6 py-4 text-sm font-bold transition-colors hover:bg-white">See how it works</a></div>
+          <div className="mt-12 flex items-center gap-5 text-sm text-[#73736a]"><div className="flex -space-x-2"><span className="size-8 rounded-full border-2 border-[#f4f4ed] bg-[#d2a783]" /><span className="size-8 rounded-full border-2 border-[#f4f4ed] bg-[#8298a5]" /><span className="size-8 rounded-full border-2 border-[#f4f4ed] bg-[#bca0b7]" /></div><span><strong className="text-[#181818]">2,400+</strong> people moving lighter</span></div>
+        </div>
+        <div className="relative mx-auto w-full max-w-[540px]">
+          <div className="relative aspect-[.88] overflow-hidden rounded-[2.5rem] bg-[#252525] p-4 shadow-2xl shadow-black/15 md:rotate-2">
+            <div className="relative h-full overflow-hidden rounded-[2rem] bg-[#30302e]">
+              <div className="absolute inset-0 opacity-60" style={{ backgroundImage: 'linear-gradient(#44443f 1px, transparent 1px), linear-gradient(90deg, #44443f 1px, transparent 1px)', backgroundSize: '42px 42px', transform: 'rotate(-12deg) scale(1.4)' }} />
+              <div className="absolute left-[25%] top-[27%] h-px w-[75%] rotate-[24deg] bg-[#7b7b70]" /><div className="absolute left-[6%] top-[62%] h-px w-[96%] -rotate-[18deg] bg-[#7b7b70]" /><div className="absolute left-[38%] top-[4%] h-[110%] w-px rotate-[18deg] bg-[#7b7b70]" />
+              <div className="absolute left-[18%] top-[23%] flex size-14 items-center justify-center rounded-full bg-[#dfff00] text-xs font-black shadow-[0_0_0_9px_rgba(223,255,0,.18)]">4</div><div className="absolute right-[19%] top-[49%] flex size-11 items-center justify-center rounded-full bg-white text-[10px] font-black shadow-[0_0_0_7px_rgba(255,255,255,.15)]">12</div><div className="absolute bottom-[20%] left-[37%] flex size-10 items-center justify-center rounded-full bg-[#8b8b83] text-[10px] font-black text-white">0</div>
+              <div className="absolute bottom-4 left-4 right-4 rounded-3xl bg-[#f4f4ed] p-5 shadow-xl"><div className="flex items-start justify-between"><div><p className="text-xs font-bold uppercase tracking-widest text-[#77776d]">Selected location</p><h3 className="mt-1 text-2xl font-black tracking-tight">City Centre</h3></div><span className="rounded-full bg-[#dfff00] px-3 py-1.5 text-xs font-bold">4 available</span></div><div className="mt-5 flex items-center justify-between text-sm"><span className="text-[#6e6e64]"><MapPin className="mr-1 inline size-4" /> 120 m away</span><strong>From €2/hour</strong></div><a href="#locations" className="mt-4 block rounded-full bg-[#181818] py-3 text-center text-sm font-bold text-white">View locker</a></div>
+            </div>
+          </div>
+          <div className="absolute -bottom-6 -left-4 rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-lg md:-left-9"><div className="flex items-center gap-2 text-sm font-bold"><ShieldCheck className="size-5 text-[#7b8f00]" /> Safe & monitored</div></div>
+        </div>
+      </section>
+
+      <section className="border-y border-black/10 bg-[#dfff00] px-5 py-5 md:px-8"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 text-sm font-bold uppercase tracking-[0.14em]"><span>One app. Every city.</span><span className="hidden opacity-30 md:inline">✳</span><span>Book by the hour</span><span className="hidden opacity-30 md:inline">✳</span><span>Secure by design</span><span className="hidden opacity-30 md:inline">✳</span><span>Keep moving</span></div></section>
+
+      <section id="how-it-works" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32"><div className="mb-14 flex flex-col justify-between gap-5 md:flex-row md:items-end"><div><p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[#77776d]">How it works</p><h2 className="max-w-2xl text-5xl font-black leading-[.92] tracking-[-0.07em] md:text-7xl">Storage that<br /><span className="text-[#98988e]">keeps up.</span></h2></div><p className="max-w-xs text-[#6e6e64]">From booking to goodbye, everything is designed to make your day feel a little lighter.</p></div><div className="grid gap-4 md:grid-cols-3">{[['01', 'Find your spot', 'See available lockers near you, in real time.', MapPin], ['02', 'Book in seconds', 'Choose your size and how long you need it.', Clock3], ['03', 'Open & go', 'Use your unique code to access your locker.', LockKeyhole]].map(([number, title, copy, Icon]) => <article key={number} className="group rounded-[2rem] border border-black/10 bg-white p-7 transition-transform hover:-translate-y-1 md:p-9"><div className="flex items-start justify-between"><span className="text-sm font-bold text-[#98988e]">{number}</span><span className="flex size-12 items-center justify-center rounded-full bg-[#f1f1ea] transition-colors group-hover:bg-[#dfff00]"><Icon className="size-5" /></span></div><h3 className="mt-16 text-2xl font-black tracking-tight">{title}</h3><p className="mt-3 leading-relaxed text-[#73736a]">{copy}</p></article>)}</div></section>
+
+      <section id="locations" className="bg-[#20201e] px-5 py-24 text-[#f4f4ed] md:px-8 md:py-32"><div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[#a9a99f]">Right where you need it</p><h2 className="max-w-2xl text-5xl font-black leading-[.92] tracking-[-0.07em] md:text-7xl">Your city is<br /><span className="text-[#dfff00]">your storage.</span></h2></div><a href="#top" className="w-fit rounded-full bg-[#dfff00] px-6 py-4 text-sm font-black text-[#181818]">Open the map <Navigation className="ml-2 inline size-4" /></a></div><div className="mt-14 grid gap-3">{locations.map((location, index) => <div key={location.name} className="flex flex-wrap items-center gap-4 rounded-3xl border border-white/10 bg-white/[.06] p-5 transition-colors hover:bg-white/[.1] md:p-6"><span className={`flex size-12 items-center justify-center rounded-2xl text-sm font-black text-[#181818] ${location.tone}`}>{String(index + 1).padStart(2, '0')}</span><div className="min-w-[150px] flex-1"><h3 className="text-xl font-black">LOCKIT — {location.name}</h3><p className="mt-1 text-sm text-[#a9a99f]"><MapPin className="mr-1 inline size-3" /> {location.distance}</p></div><span className="rounded-full border border-white/10 px-4 py-2 text-sm text-[#d1d1c8]">{location.available ? `${location.available} lockers available` : 'Currently full'}</span><strong className="w-24 text-right text-sm">From {location.price}<span className="block text-xs font-normal text-[#a9a99f]">per hour</span></strong><button className="rounded-full bg-white px-5 py-3 text-sm font-bold text-[#181818] transition-colors hover:bg-[#dfff00]">View locker</button></div>)}</div></div></section>
+
+      <section id="hosts" className="mx-auto grid max-w-7xl gap-10 px-5 py-24 md:grid-cols-2 md:items-center md:px-8 md:py-32"><div className="rounded-[2rem] bg-[#dfff00] p-8 md:p-12"><Sparkles className="size-9" /><p className="mt-20 text-xs font-bold uppercase tracking-[0.18em]">For hosts</p><h2 className="mt-4 text-5xl font-black leading-[.9] tracking-[-0.07em] md:text-6xl">Turn unused space into useful space.</h2><p className="mt-6 max-w-sm leading-relaxed">Bring LOCKIT to your hotel, shop, or station. Give people a reason to stop by, and earn from every booking.</p><a href="#footer" className="mt-8 inline-block rounded-full bg-[#181818] px-6 py-4 text-sm font-bold text-white">Become a host <ArrowRight className="ml-2 inline size-4" /></a></div><div className="md:pl-10"><p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[#77776d]">Why LOCKIT</p><h2 className="text-5xl font-black leading-[.92] tracking-[-0.07em] md:text-6xl">The easiest<br /><span className="text-[#99998f]">way to carry less.</span></h2><div className="mt-10 flex flex-col gap-6">{[['01', 'Built for real life', 'Book a few hours or make a day of it. Plans change. Your storage can too.'], ['02', 'Peace of mind included', 'Unique access codes, secure locations, and clear booking details.'], ['03', 'More time for you', 'No dragging bags through the city. Just drop, lock, and go.']].map(([num, title, copy]) => <div key={num} className="flex gap-5 border-t border-black/10 pt-5"><span className="text-sm font-bold text-[#929288]">{num}</span><div><h3 className="font-black">{title}</h3><p className="mt-1 text-sm leading-relaxed text-[#73736a]">{copy}</p></div></div>)}</div></div></section>
+
+      <section className="border-t border-black/10 px-5 py-24 md:px-8 md:py-28"><div className="mx-auto max-w-3xl"><p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[#77776d]">FAQ</p><h2 className="text-5xl font-black tracking-[-0.07em] md:text-6xl">Good questions.</h2><div className="mt-10">{faqs.map(([question, answer], index) => <div key={question} className="border-t border-black/10"><button onClick={() => setOpenFaq(openFaq === index ? null : index)} className="flex w-full items-center justify-between py-6 text-left text-lg font-black"><span>{question}</span><ChevronDown className={`size-5 transition-transform ${openFaq === index ? 'rotate-180' : ''}`} /></button>{openFaq === index && <p className="max-w-xl pb-6 leading-relaxed text-[#73736a]">{answer}</p>}</div>)}</div></div></section>
+
+      <section className="px-5 pb-24 md:px-8 md:pb-32"><div className="mx-auto max-w-7xl rounded-[2.5rem] bg-[#181818] px-7 py-14 text-center text-white md:px-14 md:py-20"><p className="text-xs font-bold uppercase tracking-[0.18em] text-[#dfff00]">Ready when you are</p><h2 className="mx-auto mt-5 max-w-3xl text-5xl font-black leading-[.9] tracking-[-0.07em] md:text-7xl">Leave the heavy lifting to us.</h2><a href="#locations" className="mt-9 inline-block rounded-full bg-[#dfff00] px-7 py-4 text-sm font-black text-[#181818]">Find a locker <ArrowRight className="ml-2 inline size-4" /></a></div></section>
+
+      <footer id="footer" className="border-t border-black/10 px-5 py-8 md:px-8"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 text-sm text-[#73736a] md:flex-row md:items-center"><a href="#top" className="flex items-center gap-2 font-black tracking-[-0.08em] text-[#181818]"><span className="flex size-6 items-center justify-center rounded-full bg-[#dfff00]"><LockKeyhole className="size-3" /></span>LOCKIT</a><p>Move freely. Leave your stuff with us.</p><div className="flex gap-5"><a href="#footer" className="hover:text-[#181818]">Privacy</a><a href="#footer" className="hover:text-[#181818]">Terms</a><a href="#footer" className="hover:text-[#181818]">Help</a></div></div></footer>
     </main>
   )
 }

@@ -9,27 +9,42 @@ export default function AccessPage() {
   const [booking, setBooking] = useState<Booking | null>(null)
   const [error, setError] = useState('')
   const [now, setNow] = useState(Date.now())
-  const id = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('id') : null
+  const [id, setId] = useState<string | null>(null)
+
+  useEffect(() => {
+    setId(new URLSearchParams(window.location.search).get('id'))
+  }, [])
 
   useEffect(() => {
     if (!id) return
+    let active = true
     const load = async () => {
-      const response = await fetch(`/api/bookings?id=${encodeURIComponent(id)}`, { cache: 'no-store' })
-      if (response.ok) setBooking(await response.json())
-      else setError('This access link is not valid.')
+      try {
+        const response = await fetch(`/api/bookings?id=${encodeURIComponent(id)}`, { cache: 'no-store' })
+        if (!response.ok) throw new Error('not-found')
+        const nextBooking = await response.json()
+        if (active) setBooking(nextBooking)
+        return nextBooking
+      } catch {
+        if (active) setError('This access link is not valid.')
+        return null
+      }
     }
     const startFromScan = async () => {
-      await fetch('/api/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'start', id }),
-      })
-      await load()
+      const current = await load()
+      if (current?.status !== 'confirmed') {
+        await fetch('/api/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'start', id }),
+        })
+        await load()
+      }
     }
     void startFromScan()
     const poll = window.setInterval(load, 5000)
     const tick = window.setInterval(() => setNow(Date.now()), 1000)
-    return () => { window.clearInterval(poll); window.clearInterval(tick) }
+    return () => { active = false; window.clearInterval(poll); window.clearInterval(tick) }
   }, [id])
 
   const timing = useMemo(() => {

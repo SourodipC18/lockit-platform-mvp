@@ -7,6 +7,21 @@ export async function POST(request: Request) {
   const body = await request.json()
   const { action = 'create', id, location, lockerSize, hours, name, email } = body
 
+  if (action === 'close') {
+    if (!id) return NextResponse.json({ error: 'Booking ID is required' }, { status: 400 })
+    const result = await pool.query(
+      `UPDATE lockit_bookings SET status = 'closed' WHERE id = $1 AND status <> 'closed' RETURNING id, status`,
+      [id],
+    )
+    if (!result.rows[0]) return NextResponse.json({ error: 'Booking not found or already closed' }, { status: 404 })
+    return NextResponse.json(result.rows[0])
+  }
+
+  if (action === 'clear-all') {
+    await pool.query('DELETE FROM lockit_bookings')
+    return NextResponse.json({ cleared: true })
+  }
+
   if (action === 'approve' || action === 'start') {
     if (!id) return NextResponse.json({ error: 'Booking ID is required' }, { status: 400 })
     const result = await pool.query(

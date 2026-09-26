@@ -227,7 +227,8 @@ main :where(p, li, label, dt, dd, blockquote, figcaption) {
 .lockit-dark { background: #111916; color: #f4f8ee; }
 .lockit-dark nav, .lockit-dark footer, .lockit-dark section:not(#locations):not(#manage-bookings) { border-color: rgb(255 255 255 / .12); }
 .lockit-dark .lockit-theme-toggle { border-color: rgb(255 255 255 / .16); background: rgb(255 255 255 / .1); color: #dfff00; }
-.lockit-dark .lockit-hero-copy h1, .lockit-dark h2, .lockit-dark h3, .lockit-dark h4 { color: #f4f8ee; }
+.lockit-dark .lockit-hero-copy h1, .lockit-dark h2, .lockit-dark h3, .lockit-dark h4 { color: #f4f8ee; background: none; -webkit-text-fill-color: #f4f8ee; }
+.lockit-dark .lockit-hero-copy h1 span, .lockit-dark h2 span { -webkit-text-fill-color: #9fb2a7; }
 .lockit-dark .lockit-hero-copy h1 span, .lockit-dark h2 span { color: #91a39a; }
 .lockit-dark article, .lockit-dark .lockit-glass-slider + p { background: #1d2925; color: #f4f8ee; }
 .lockit-dark p, .lockit-dark li, .lockit-dark label, .lockit-dark footer, .lockit-dark .lockit-devtools { color: #d0ddd5; }
@@ -237,6 +238,19 @@ main :where(p, li, label, dt, dd, blockquote, figcaption) {
 .lockit-dark .lockit-find-button { background: #dfff00; color: #111916; box-shadow: 0 8px 24px rgb(223 255 0 / .18); }
 .lockit-dark .lockit-find-button:hover { background: #c7e600; color: #111916; }
 .lockit-dark .lockit-devtools .backdrop-blur-xl { background: rgb(255 255 255 / .08); }
+.lockit-booking-modal { background: #f4f4ed; color: #181818; }
+.lockit-modal-dark { background: #17231e; color: #f1f7f2; border: 1px solid rgb(255 255 255 / .14); }
+.lockit-booking-modal .lockit-booking-summary { background: #ffffff; }
+.lockit-modal-dark .lockit-booking-summary { background: #22332b; }
+.lockit-modal-dark label, .lockit-modal-dark p, .lockit-modal-dark h2 { color: #f1f7f2; }
+.lockit-modal-dark select, .lockit-modal-dark input { border-color: rgb(255 255 255 / .18); background: #22332b; color: #f1f7f2; }
+.lockit-modal-dark select option { background: #17231e; color: #f1f7f2; }
+.lockit-modal-dark .text-\[\#73736a\] { color: #b8c9be; }
+
+.lockit-booking-modal :where(h1, h2, h3, h4, p, li, label, dt, dd, blockquote, figcaption):hover { color: inherit; text-shadow: none; transform: none; }
+.lockit-booking-modal :where(h1, h2, h3, h4) { background: none; animation: none; -webkit-text-fill-color: currentColor; }
+.lockit-booking-modal :where(p, li, label, dt, dd, blockquote, figcaption) { animation: none; }
+
 .lockit-dark a:not(.bg-\[\#181818\]), .lockit-dark button { color: #eef8f1; }
 .lockit-dark .lockit-hero-copy p, .lockit-dark .lockit-glass-slider + p { color: #c5d4ca; }
 .lockit-dark .lockit-glass-slider + p { background: transparent; }

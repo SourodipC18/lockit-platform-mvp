@@ -214,10 +214,23 @@ main :where(p, li, label, dt, dd, blockquote, figcaption) {
   animation: lockit-text-breathe 7s ease-in-out infinite;
 }
 
-.lockit-glass-slider { appearance: none; height: 7px; border-radius: 999px; cursor: ew-resize; background: linear-gradient(90deg, #2aa88f, #4ecdc4, #dfff00); box-shadow: 0 4px 18px rgb(78 205 196 / .32); }
+.lockit-glass-slider { appearance: none; display: block; height: 8px; border-radius: 999px; cursor: ew-resize; background: linear-gradient(90deg, #167c68, #20a88b, #b6d900); box-shadow: 0 4px 18px rgb(22 124 104 / .32); accent-color: #167c68; touch-action: pan-y; }
+.lockit-glass-slider:focus-visible { outline: 3px solid rgb(22 124 104 / .35); outline-offset: 5px; }
 .lockit-glass-slider::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; border: 3px solid white; border-radius: 50%; cursor: grab; background: #7565d8; box-shadow: 0 4px 18px rgb(24 24 24 / .22); transition: transform 240ms cubic-bezier(.22,1,.36,1), background 240ms ease; }
 .lockit-glass-slider::-webkit-slider-thumb:hover, .lockit-glass-slider:focus-visible::-webkit-slider-thumb { transform: scale(1.35); background: #4ecdc4; }
-.lockit-glass-slider::-moz-range-thumb { width: 18px; height: 18px; border: 3px solid white; border-radius: 50%; cursor: grab; background: #7565d8; box-shadow: 0 4px 18px rgb(24 24 24 / .22); }
+.lockit-glass-slider::-moz-range-thumb { width: 18px; height: 18px; border: 3px solid white; border-radius: 50%; cursor: grab; background: #167c68; box-shadow: 0 4px 18px rgb(24 24 24 / .22); }
+
+.lockit-app { background: #f4f4ed; color: #181818; transition: background-color 420ms ease, color 420ms ease; }
+.lockit-dark { background: #111916; color: #f4f8ee; }
+.lockit-dark nav, .lockit-dark footer, .lockit-dark section:not(#locations):not(#manage-bookings) { border-color: rgb(255 255 255 / .12); }
+.lockit-dark .lockit-theme-toggle { border-color: rgb(255 255 255 / .16); background: rgb(255 255 255 / .1); color: #dfff00; }
+.lockit-dark .lockit-hero-copy h1, .lockit-dark h2, .lockit-dark h3, .lockit-dark h4 { color: #f4f8ee; }
+.lockit-dark .lockit-hero-copy h1 span, .lockit-dark h2 span { color: #91a39a; }
+.lockit-dark article, .lockit-dark .lockit-glass-slider + p { background: #1d2925; color: #f4f8ee; }
+.lockit-dark p, .lockit-dark li, .lockit-dark label, .lockit-dark footer { color: #a9bbb1; }
+.lockit-dark .lockit-theme-toggle:hover { background: #167c68; color: white; }
+.lockit-dark .lockit-glass-slider::-webkit-slider-thumb { border-color: #1d2925; }
+.lockit-dark .lockit-glass-slider::-moz-range-thumb { border-color: #1d2925; }
 
 button, a { transition: transform 360ms cubic-bezier(.22,1,.36,1), box-shadow 360ms cubic-bezier(.22,1,.36,1), background-color 280ms ease, color 280ms ease, border-color 280ms ease, filter 360ms ease; }
 button:hover, a:hover { transform: translateY(-4px); filter: saturate(1.18); }

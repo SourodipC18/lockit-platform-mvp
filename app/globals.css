@@ -224,10 +224,16 @@ main :where(p, li, label, dt, dd, blockquote, figcaption) {
   text-shadow: none;
   transform: none;
 }
-#top > div:nth-of-type(2) > div.relative > div.absolute.bottom-4:nth-of-type(2) :where(p, span, strong):hover {
-  color: inherit;
-  text-shadow: none;
-  transform: none;
+.lockit-location-card,
+.lockit-location-card :where(p, span, strong) {
+  animation: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+.lockit-location-card :where(p, span, strong):hover {
+  color: inherit !important;
+  text-shadow: none !important;
+  transform: none !important;
 }
 
 .lockit-glass-slider { appearance: none; display: block; height: 8px; border-radius: 999px; cursor: ew-resize; background: linear-gradient(90deg, #167c68, #20a88b, #b6d900); box-shadow: 0 4px 18px rgb(22 124 104 / .32); accent-color: #167c68; touch-action: pan-y; }

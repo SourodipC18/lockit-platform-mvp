@@ -191,8 +191,9 @@
 .lockit-map-pin:hover, .lockit-map-pin:focus-visible { z-index: 2; background: linear-gradient(135deg, #dfff00, #4ecdc4); transform: translate(-50%, -50%) scale(1.35); box-shadow: 0 0 0 8px rgb(223 255 0 / .25), 0 8px 24px rgb(0 0 0 / .5); }
 .lockit-reveal { animation: lockit-shimmer 3.2s cubic-bezier(.4,0,.2,1) infinite; }
 .lockit-hero-copy { transform-origin: left center; transition: transform 700ms cubic-bezier(.22,1,.36,1), filter 500ms ease; }
-.lockit-hero-copy:hover, .lockit-hero-copy:focus-visible, .lockit-hero-copy.is-active { filter: drop-shadow(0 18px 30px rgb(117 101 216 / .2)); }
-.lockit-hero-copy:hover h1, .lockit-hero-copy:focus-visible h1, .lockit-hero-copy.is-active h1 { background: linear-gradient(110deg, #181818 12%, #6e6e64 42%, #b0b0a5 58%, #181818 88%); background-size: 240% auto; background-clip: text; -webkit-background-clip: text; color: transparent; animation: lockit-color-drift 2.6s ease-in-out infinite; }
+.lockit-hero-copy:hover, .lockit-hero-copy:focus-visible, .lockit-hero-copy.is-active { filter: drop-shadow(0 18px 30px rgb(166 255 0 / .28)); }
+.lockit-hero-copy:hover h1, .lockit-hero-copy:focus-visible h1, .lockit-hero-copy.is-active h1 { background: linear-gradient(110deg, #181818 8%, #8dff00 30%, #f1ff8a 48%, #b8ff00 62%, #181818 92%); background-size: 240% auto; background-clip: text; -webkit-background-clip: text; color: transparent; animation: lockit-color-drift 2.6s ease-in-out infinite; text-shadow: 0 0 22px rgb(166 255 0 / .34), 0 0 48px rgb(166 255 0 / .16); }
+.lockit-dark .lockit-hero-copy:hover h1, .lockit-dark .lockit-hero-copy:focus-visible h1, .lockit-dark .lockit-hero-copy.is-active h1 { background: linear-gradient(110deg, #f4f8ee 8%, #dfff00 34%, #f7ffad 50%, #aaff00 66%, #f4f8ee 92%); background-size: 240% auto; background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; text-shadow: 0 0 24px rgb(223 255 0 / .42), 0 0 52px rgb(223 255 0 / .18); }
 .lockit-hero-copy h1::selection, .lockit-hero-copy h1 span::selection { background: #2f4f4f; color: #ffffff; -webkit-text-fill-color: #ffffff; }
 
 /* Static copy gets the same lively green glass treatment without competing with controls. */

@@ -193,6 +193,7 @@
 .lockit-hero-copy { transform-origin: left center; transition: transform 700ms cubic-bezier(.22,1,.36,1), filter 500ms ease; }
 .lockit-hero-copy:hover, .lockit-hero-copy:focus-visible, .lockit-hero-copy.is-active { filter: drop-shadow(0 18px 30px rgb(117 101 216 / .2)); }
 .lockit-hero-copy:hover h1, .lockit-hero-copy:focus-visible h1, .lockit-hero-copy.is-active h1 { background: linear-gradient(110deg, #181818 12%, #6e6e64 42%, #b0b0a5 58%, #181818 88%); background-size: 240% auto; background-clip: text; -webkit-background-clip: text; color: transparent; animation: lockit-color-drift 2.6s ease-in-out infinite; }
+.lockit-hero-copy h1::selection, .lockit-hero-copy h1 span::selection { background: #dfff00; color: #181818; -webkit-text-fill-color: #181818; }
 
 /* Static copy gets the same lively green glass treatment without competing with controls. */
 main :where(h1, h2, h3, h4, p, li, label, dt, dd, blockquote, figcaption) {
@@ -204,12 +205,11 @@ main :where(h1, h2, h3, h4, p, li, label, dt, dd, blockquote, figcaption):hover 
   transform: translateX(3px);
 }
 main :where(h1, h2, h3, h4) {
-  background: linear-gradient(110deg, currentColor 8%, #4ecdc4 35%, #dfff00 52%, currentColor 78%);
-  background-size: 220% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: lockit-color-drift 6s ease-in-out infinite;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  animation: none;
 }
+main ::selection { background: #dfff00; color: #181818; -webkit-text-fill-color: #181818; }
 main :where(p, li, label, dt, dd, blockquote, figcaption) {
   animation: lockit-text-breathe 7s ease-in-out infinite;
 }
@@ -224,7 +224,8 @@ main :where(p, li, label, dt, dd, blockquote, figcaption) {
 .lockit-app:not(.lockit-dark) .lockit-devtools { background: #eef6ee; }
 .lockit-app:not(.lockit-dark) .lockit-hero-copy p { color: #3f5148; }
 .lockit-app:not(.lockit-dark) .lockit-glass-slider + p { color: #43564b; }
-.lockit-dark { background: #111916; color: #f4f8ee; }
+.lockit-dark { background: #050606; color: #f4f8ee; }
+.lockit-dark main, .lockit-dark nav, .lockit-dark footer { background-color: #050606; }
 .lockit-dark nav, .lockit-dark footer, .lockit-dark section:not(#locations):not(#manage-bookings) { border-color: rgb(255 255 255 / .12); }
 .lockit-dark .lockit-theme-toggle { border-color: rgb(255 255 255 / .16); background: rgb(255 255 255 / .1); color: #dfff00; }
 .lockit-dark .lockit-hero-copy h1, .lockit-dark h2, .lockit-dark h3, .lockit-dark h4 { color: #f4f8ee; background: none; -webkit-text-fill-color: #f4f8ee; }
@@ -239,9 +240,9 @@ main :where(p, li, label, dt, dd, blockquote, figcaption) {
 .lockit-dark .lockit-find-button:hover { background: #c7e600; color: #111916; }
 .lockit-dark .lockit-devtools .backdrop-blur-xl { background: rgb(255 255 255 / .08); }
 .lockit-booking-modal { background: #f4f4ed; color: #181818; }
-.lockit-modal-dark { background: #17231e; color: #f1f7f2; border: 1px solid rgb(255 255 255 / .14); }
+.lockit-modal-dark { background: #0a0b0b; color: #f1f7f2; border: 1px solid rgb(255 255 255 / .14); }
 .lockit-booking-modal .lockit-booking-summary { background: #ffffff; }
-.lockit-modal-dark .lockit-booking-summary { background: #22332b; }
+.lockit-modal-dark .lockit-booking-summary { background: #171919; }
 .lockit-modal-dark label, .lockit-modal-dark p, .lockit-modal-dark h2 { color: #f1f7f2; }
 .lockit-modal-dark select, .lockit-modal-dark input { border-color: rgb(255 255 255 / .18); background: #22332b; color: #f1f7f2; }
 .lockit-modal-dark select option { background: #17231e; color: #f1f7f2; }

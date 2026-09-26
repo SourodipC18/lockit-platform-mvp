@@ -155,26 +155,44 @@
 
 @keyframes lockit-float {
   0%, 100% { transform: translateY(0) rotate(2deg); }
-  50% { transform: translateY(-8px) rotate(2deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
 }
 
 @keyframes lockit-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgb(223 255 0 / 0.35); }
-  50% { box-shadow: 0 0 0 12px rgb(223 255 0 / 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgb(223 255 0 / 0.5), 0 0 0 0 rgb(78 205 196 / 0); }
+  50% { box-shadow: 0 0 0 15px rgb(223 255 0 / 0), 0 0 34px 8px rgb(78 205 196 / 0.32); }
 }
 
 @keyframes lockit-shimmer {
-  0% { transform: translateX(-110%); }
-  100% { transform: translateX(110%); }
+  0% { opacity: 0; transform: translateX(-140%) skewX(-18deg); }
+  22%, 100% { opacity: 1; transform: translateX(420%) skewX(-18deg); }
 }
 
-.lockit-map-card { animation: lockit-float 10s cubic-bezier(.45,0,.55,1) infinite; transform: translateZ(0); will-change: transform; }
-.lockit-live-pin { animation: lockit-pulse 3.2s cubic-bezier(.4,0,.2,1) infinite; will-change: transform, box-shadow; }
-.lockit-reveal { animation: lockit-shimmer 4.5s cubic-bezier(.4,0,.2,1) infinite; }
+@keyframes lockit-color-drift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
 
-button, a { transition: transform 420ms cubic-bezier(.22,1,.36,1), box-shadow 420ms cubic-bezier(.22,1,.36,1), background-color 280ms ease, color 280ms ease, border-color 280ms ease; }
-button:hover, a:hover { transform: translateY(-2px); }
-button:active, a:active { transform: translateY(0) scale(.98); transition-duration: 120ms; }
+@keyframes lockit-pop-in {
+  0% { opacity: 0; transform: scale(.72) translateY(10px); }
+  70% { transform: scale(1.08) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.lockit-map-card { animation: lockit-float 8s cubic-bezier(.45,0,.55,1) infinite; transform: translateZ(0); will-change: transform; }
+.lockit-live-pin { animation: lockit-pulse 2.1s cubic-bezier(.4,0,.2,1) infinite; will-change: transform, box-shadow; }
+.lockit-live-pin:hover { background: linear-gradient(135deg, #dfff00, #4ecdc4, #b983ff); background-size: 220% 220%; animation: lockit-color-drift 1.4s ease infinite, lockit-pulse 2.1s cubic-bezier(.4,0,.2,1) infinite; color: #181818; transform: translate(-50%, -50%) scale(1.22) rotate(8deg); }
+.lockit-reveal { animation: lockit-shimmer 3.2s cubic-bezier(.4,0,.2,1) infinite; }
+
+button, a { transition: transform 360ms cubic-bezier(.22,1,.36,1), box-shadow 360ms cubic-bezier(.22,1,.36,1), background-color 280ms ease, color 280ms ease, border-color 280ms ease, filter 360ms ease; }
+button:hover, a:hover { transform: translateY(-4px); filter: saturate(1.18); }
+button:active, a:active { transform: translateY(0) scale(.96); transition-duration: 120ms; }
+main section:not(#top) { animation: lockit-pop-in .8s cubic-bezier(.22,1,.36,1) both; }
+
+@media (hover: hover) {
+  article:hover { box-shadow: 0 18px 45px rgb(24 24 24 / .12), 0 0 0 1px rgb(78 205 196 / .25); }
+  nav a:not(:has(svg)):hover { color: #7565d8; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }

@@ -217,6 +217,19 @@ main :where(p, li, label, dt, dd, blockquote, figcaption) {
   animation: lockit-text-breathe 7s ease-in-out infinite;
 }
 
+/* Keep the hero location card readable: no neon hover treatment on its copy. */
+#top > div:nth-of-type(2) > div.relative > div.absolute.bottom-4:nth-of-type(2),
+#top > div:nth-of-type(2) > div.relative > div.absolute.bottom-4:nth-of-type(2) :where(p, span, strong) {
+  animation: none;
+  text-shadow: none;
+  transform: none;
+}
+#top > div:nth-of-type(2) > div.relative > div.absolute.bottom-4:nth-of-type(2) :where(p, span, strong):hover {
+  color: inherit;
+  text-shadow: none;
+  transform: none;
+}
+
 .lockit-glass-slider { appearance: none; display: block; height: 8px; border-radius: 999px; cursor: ew-resize; background: linear-gradient(90deg, #167c68, #20a88b, #b6d900); box-shadow: 0 4px 18px rgb(22 124 104 / .32); accent-color: #167c68; touch-action: pan-y; }
 .lockit-glass-slider:focus-visible { outline: 3px solid rgb(22 124 104 / .35); outline-offset: 5px; }
 .lockit-glass-slider::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; border: 3px solid white; border-radius: 50%; cursor: grab; background: #167c68; box-shadow: 0 4px 18px rgb(24 24 24 / .22); transition: transform 240ms cubic-bezier(.22,1,.36,1), background 240ms ease; }

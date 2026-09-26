@@ -192,7 +192,7 @@
 .lockit-reveal { animation: lockit-shimmer 3.2s cubic-bezier(.4,0,.2,1) infinite; }
 .lockit-hero-copy { transform-origin: left center; transition: transform 700ms cubic-bezier(.22,1,.36,1), filter 500ms ease; }
 .lockit-hero-copy:hover, .lockit-hero-copy:focus-visible, .lockit-hero-copy.is-active { filter: drop-shadow(0 18px 30px rgb(117 101 216 / .2)); }
-.lockit-hero-copy:hover h1, .lockit-hero-copy:focus-visible h1, .lockit-hero-copy.is-active h1 { background: linear-gradient(110deg, #181818 8%, #2aa88f 30%, #dfff00 52%, #4ecdc4 72%, #181818 94%); background-size: 240% auto; background-clip: text; -webkit-background-clip: text; color: transparent; animation: lockit-color-drift 2.6s ease-in-out infinite; }
+.lockit-hero-copy:hover h1, .lockit-hero-copy:focus-visible h1, .lockit-hero-copy.is-active h1 { background: linear-gradient(110deg, #181818 12%, #6e6e64 42%, #b0b0a5 58%, #181818 88%); background-size: 240% auto; background-clip: text; -webkit-background-clip: text; color: transparent; animation: lockit-color-drift 2.6s ease-in-out infinite; }
 
 /* Static copy gets the same lively green glass treatment without competing with controls. */
 main :where(h1, h2, h3, h4, p, li, label, dt, dd, blockquote, figcaption) {
@@ -234,6 +234,9 @@ main :where(p, li, label, dt, dd, blockquote, figcaption) {
 .lockit-dark .lockit-devtools { background: #14221d; border-color: rgb(255 255 255 / .12); }
 .lockit-dark .lockit-devtools p { color: #8ee6c6; }
 .lockit-dark .lockit-theme-toggle:hover { background: #167c68; color: white; }
+.lockit-dark .lockit-find-button { background: #dfff00; color: #111916; box-shadow: 0 8px 24px rgb(223 255 0 / .18); }
+.lockit-dark .lockit-find-button:hover { background: #c7e600; color: #111916; }
+.lockit-dark .lockit-devtools .backdrop-blur-xl { background: rgb(255 255 255 / .08); }
 .lockit-dark a:not(.bg-\[\#181818\]), .lockit-dark button { color: #eef8f1; }
 .lockit-dark .lockit-hero-copy p, .lockit-dark .lockit-glass-slider + p { color: #c5d4ca; }
 .lockit-dark .lockit-glass-slider + p { background: transparent; }

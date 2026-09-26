@@ -193,7 +193,7 @@
 .lockit-hero-copy { transform-origin: left center; transition: transform 700ms cubic-bezier(.22,1,.36,1), filter 500ms ease; }
 .lockit-hero-copy:hover, .lockit-hero-copy:focus-visible, .lockit-hero-copy.is-active { filter: drop-shadow(0 18px 30px rgb(117 101 216 / .2)); }
 .lockit-hero-copy:hover h1, .lockit-hero-copy:focus-visible h1, .lockit-hero-copy.is-active h1 { background: linear-gradient(110deg, #181818 12%, #6e6e64 42%, #b0b0a5 58%, #181818 88%); background-size: 240% auto; background-clip: text; -webkit-background-clip: text; color: transparent; animation: lockit-color-drift 2.6s ease-in-out infinite; }
-.lockit-hero-copy h1::selection, .lockit-hero-copy h1 span::selection { background: #dfff00; color: #181818; -webkit-text-fill-color: #181818; }
+.lockit-hero-copy h1::selection, .lockit-hero-copy h1 span::selection { background: #2f4f4f; color: #ffffff; -webkit-text-fill-color: #ffffff; }
 
 /* Static copy gets the same lively green glass treatment without competing with controls. */
 main :where(h1, h2, h3, h4, p, li, label, dt, dd, blockquote, figcaption) {
@@ -209,7 +209,7 @@ main :where(h1, h2, h3, h4) {
   -webkit-text-fill-color: currentColor;
   animation: none;
 }
-main ::selection { background: #dfff00; color: #181818; -webkit-text-fill-color: #181818; }
+main ::selection { background: #2f4f4f; color: #ffffff; -webkit-text-fill-color: #ffffff; }
 main :where(p, li, label, dt, dd, blockquote, figcaption) {
   animation: lockit-text-breathe 7s ease-in-out infinite;
 }

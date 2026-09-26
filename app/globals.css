@@ -153,6 +153,141 @@
   }
 }
 
+@keyframes lockit-float {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes lockit-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(223 255 0 / 0.5), 0 0 0 0 rgb(78 205 196 / 0); }
+  50% { box-shadow: 0 0 0 15px rgb(223 255 0 / 0), 0 0 34px 8px rgb(78 205 196 / 0.32); }
+}
+
+@keyframes lockit-shimmer {
+  0% { opacity: 0; transform: translateX(-140%) skewX(-18deg); }
+  22%, 100% { opacity: 1; transform: translateX(420%) skewX(-18deg); }
+}
+
+@keyframes lockit-color-drift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes lockit-pop-in {
+  0% { opacity: 0; transform: scale(.72) translateY(10px); }
+  70% { transform: scale(1.08) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes lockit-stroke-in { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+
+@keyframes lockit-text-breathe {
+  0%, 100% { text-shadow: 0 0 0 rgb(78 205 196 / 0); }
+  50% { text-shadow: 0 0 14px rgb(78 205 196 / .16); }
+}
+
+.lockit-map-card { animation: lockit-float 8s cubic-bezier(.45,0,.55,1) infinite; transform: translateZ(0); will-change: transform; }
+.lockit-live-pin { animation: lockit-pulse 2.1s cubic-bezier(.4,0,.2,1) infinite; will-change: transform, box-shadow; }
+.lockit-live-pin:hover, .lockit-live-pin:focus-visible { background: linear-gradient(135deg, #dfff00, #4ecdc4, #b983ff); background-size: 220% 220%; animation: lockit-color-drift 1.4s ease infinite, lockit-pulse 2.1s cubic-bezier(.4,0,.2,1) infinite; color: #181818; transform: translate(-50%, -50%) scale(1.22) rotate(8deg); }
+.lockit-map-pin { animation: lockit-pulse 2.4s cubic-bezier(.4,0,.2,1) infinite; transform-origin: center; }
+.lockit-map-pin:hover, .lockit-map-pin:focus-visible { z-index: 2; background: linear-gradient(135deg, #dfff00, #4ecdc4); transform: translate(-50%, -50%) scale(1.35); box-shadow: 0 0 0 8px rgb(223 255 0 / .25), 0 8px 24px rgb(0 0 0 / .5); }
+.lockit-reveal { animation: lockit-shimmer 3.2s cubic-bezier(.4,0,.2,1) infinite; }
+.lockit-hero-copy { transform-origin: left center; transition: transform 700ms cubic-bezier(.22,1,.36,1), filter 500ms ease; }
+.lockit-hero-copy:hover, .lockit-hero-copy:focus-visible, .lockit-hero-copy.is-active { filter: drop-shadow(0 18px 30px rgb(166 255 0 / .28)); }
+.lockit-hero-copy:hover h1, .lockit-hero-copy:focus-visible h1, .lockit-hero-copy.is-active h1 { background: linear-gradient(110deg, #181818 12%, #77776f 46%, #bcbcb4 58%, #181818 88%); background-size: 240% auto; background-clip: text; -webkit-background-clip: text; color: transparent; animation: lockit-color-drift 2.6s ease-in-out 1; text-shadow: 0 0 14px rgb(24 24 24 / .24); }
+.lockit-dark .lockit-hero-copy:hover h1, .lockit-dark .lockit-hero-copy:focus-visible h1, .lockit-dark .lockit-hero-copy.is-active h1 { background: linear-gradient(110deg, #f4f8ee 12%, #8c918d 46%, #d7ddd8 58%, #f4f8ee 88%); background-size: 240% auto; background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: lockit-color-drift 2.6s ease-in-out 1; text-shadow: 0 0 14px rgb(244 248 238 / .28); }
+.lockit-hero-copy h1::selection, .lockit-hero-copy h1 span::selection { background: #2f4f4f; color: #ffffff; -webkit-text-fill-color: #ffffff; }
+
+main :where(h1, h2, h3, h4) {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  animation: none;
+}
+main ::selection { background: #2f4f4f; color: #ffffff; -webkit-text-fill-color: #ffffff; }
+
+/* Keep the hero location card readable: no neon hover treatment on its copy. */
+#top > div:nth-of-type(2) > div.relative > div.absolute.bottom-4:nth-of-type(2),
+#top > div:nth-of-type(2) > div.relative > div.absolute.bottom-4:nth-of-type(2) :where(p, span, strong) {
+  animation: none;
+  text-shadow: none;
+  transform: none;
+}
+.lockit-location-card,
+.lockit-location-card :where(p, span, strong) {
+  animation: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+.lockit-location-card :where(p, span, strong):hover {
+  color: inherit !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+.lockit-glass-slider { appearance: none; display: block; height: 8px; border-radius: 999px; cursor: ew-resize; background: linear-gradient(90deg, #167c68, #20a88b, #b6d900); box-shadow: 0 4px 18px rgb(22 124 104 / .32); accent-color: #167c68; touch-action: pan-y; }
+.lockit-glass-slider:focus-visible { outline: 3px solid rgb(22 124 104 / .35); outline-offset: 5px; }
+.lockit-glass-slider::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; border: 3px solid white; border-radius: 50%; cursor: grab; background: #167c68; box-shadow: 0 4px 18px rgb(24 24 24 / .22); transition: transform 240ms cubic-bezier(.22,1,.36,1), background 240ms ease; }
+.lockit-glass-slider::-webkit-slider-thumb:hover, .lockit-glass-slider:focus-visible::-webkit-slider-thumb { transform: scale(1.35); background: #4ecdc4; }
+.lockit-glass-slider::-moz-range-thumb { width: 18px; height: 18px; border: 3px solid white; border-radius: 50%; cursor: grab; background: #167c68; box-shadow: 0 4px 18px rgb(24 24 24 / .22); }
+
+.lockit-app { background: #f4f4ed; color: #181818; transition: background-color 420ms ease, color 420ms ease; }
+.lockit-app:not(.lockit-dark) .lockit-devtools { background: #eef6ee; }
+.lockit-app:not(.lockit-dark) .lockit-hero-copy p { color: #3f5148; }
+.lockit-app:not(.lockit-dark) .lockit-glass-slider + p { color: #43564b; }
+.lockit-dark { background: #050606; color: #f4f8ee; }
+.lockit-dark main, .lockit-dark nav, .lockit-dark footer { background-color: #050606; }
+.lockit-dark nav, .lockit-dark footer, .lockit-dark section:not(#locations):not(#manage-bookings) { border-color: rgb(255 255 255 / .12); }
+.lockit-dark .lockit-theme-toggle { border-color: rgb(255 255 255 / .16); background: rgb(255 255 255 / .1); color: #dfff00; }
+.lockit-dark .lockit-hero-copy h1, .lockit-dark h2, .lockit-dark h3, .lockit-dark h4 { color: #f4f8ee; background: none; -webkit-text-fill-color: #f4f8ee; }
+.lockit-dark .lockit-hero-copy h1 span, .lockit-dark h2 span { -webkit-text-fill-color: #9fb2a7; }
+.lockit-dark .lockit-hero-copy h1 span, .lockit-dark h2 span { color: #91a39a; }
+.lockit-dark article, .lockit-dark .lockit-glass-slider + p { background: #1d2925; color: #f4f8ee; }
+.lockit-dark p, .lockit-dark li, .lockit-dark label, .lockit-dark footer, .lockit-dark .lockit-devtools { color: #d0ddd5; }
+.lockit-dark .lockit-devtools { background: #14221d; border-color: rgb(255 255 255 / .12); }
+.lockit-dark .lockit-devtools p { color: #8ee6c6; }
+.lockit-dark .lockit-theme-toggle:hover { background: #167c68; color: white; }
+.lockit-dark .lockit-find-button { background: #dfff00; color: #111916; box-shadow: 0 8px 24px rgb(223 255 0 / .18); }
+.lockit-dark .lockit-find-button:hover { background: #c7e600; color: #111916; }
+.lockit-dark .lockit-devtools .backdrop-blur-xl { background: rgb(255 255 255 / .08); }
+.lockit-booking-modal { background: #f4f4ed; color: #181818; }
+.lockit-modal-dark { background: #0a0b0b; color: #f1f7f2; border: 1px solid rgb(255 255 255 / .14); }
+.lockit-booking-modal .lockit-booking-summary { background: #ffffff; }
+.lockit-modal-dark .lockit-booking-summary { background: #171919; }
+.lockit-modal-dark label, .lockit-modal-dark p, .lockit-modal-dark h2 { color: #f1f7f2; }
+.lockit-modal-dark select, .lockit-modal-dark input { border-color: rgb(255 255 255 / .18); background: #22332b; color: #f1f7f2; }
+.lockit-modal-dark select option { background: #17231e; color: #f1f7f2; }
+.lockit-modal-dark .text-\[\#73736a\] { color: #b8c9be; }
+
+.lockit-booking-modal :where(h1, h2, h3, h4, p, li, label, dt, dd, blockquote, figcaption):hover { color: inherit; text-shadow: none; transform: none; }
+.lockit-booking-modal :where(h1, h2, h3, h4) { background: none; animation: none; -webkit-text-fill-color: currentColor; }
+.lockit-booking-modal :where(p, li, label, dt, dd, blockquote, figcaption) { animation: none; }
+
+.lockit-dark a:not(.bg-\[\#181818\]), .lockit-dark button { color: #eef8f1; }
+.lockit-dark .lockit-hero-copy p, .lockit-dark .lockit-glass-slider + p { color: #c5d4ca; }
+.lockit-dark .lockit-glass-slider + p { background: transparent; }
+.lockit-dark .lockit-devtools button { border-color: #38b894; color: #8ee6c6; }
+.lockit-dark .lockit-devtools button:hover { background: #167c68; color: #ffffff; }
+.lockit-dark .lockit-glass-slider::-webkit-slider-thumb { border-color: #1d2925; }
+.lockit-dark .lockit-glass-slider::-moz-range-thumb { border-color: #1d2925; }
+
+button, a { transition: transform 360ms cubic-bezier(.22,1,.36,1), box-shadow 360ms cubic-bezier(.22,1,.36,1), background-color 280ms ease, color 280ms ease, border-color 280ms ease, filter 360ms ease; }
+button:hover, a:hover { transform: translateY(-4px); filter: saturate(1.18); }
+button:active, a:active { transform: translateY(0) scale(.96); transition-duration: 120ms; }
+main section:not(#top) { animation: lockit-pop-in .8s cubic-bezier(.22,1,.36,1) both; }
+
+@media (hover: hover) {
+  article:hover { box-shadow: 0 18px 45px rgb(24 24 24 / .12), 0 0 0 1px rgb(78 205 196 / .25); }
+  nav a:not(:has(svg)):hover { color: #7565d8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lockit-map-card, .lockit-live-pin, .lockit-reveal { animation: none; }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -168,9 +168,17 @@
   100% { transform: translateX(110%); }
 }
 
-.lockit-map-card { animation: lockit-float 7s ease-in-out infinite; }
-.lockit-live-pin { animation: lockit-pulse 2.4s ease-out infinite; }
-.lockit-reveal { animation: lockit-shimmer 2.8s ease-in-out infinite; }
+.lockit-map-card { animation: lockit-float 10s cubic-bezier(.45,0,.55,1) infinite; transform: translateZ(0); will-change: transform; }
+.lockit-live-pin { animation: lockit-pulse 3.2s cubic-bezier(.4,0,.2,1) infinite; will-change: transform, box-shadow; }
+.lockit-reveal { animation: lockit-shimmer 4.5s cubic-bezier(.4,0,.2,1) infinite; }
+
+button, a { transition: transform 420ms cubic-bezier(.22,1,.36,1), box-shadow 420ms cubic-bezier(.22,1,.36,1), background-color 280ms ease, color 280ms ease, border-color 280ms ease; }
+button:hover, a:hover { transform: translateY(-2px); }
+button:active, a:active { transform: translateY(0) scale(.98); transition-duration: 120ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .lockit-map-card, .lockit-live-pin, .lockit-reveal { animation: none; }

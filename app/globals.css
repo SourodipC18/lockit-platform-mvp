@@ -153,6 +153,29 @@
   }
 }
 
+@keyframes lockit-float {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes lockit-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(223 255 0 / 0.35); }
+  50% { box-shadow: 0 0 0 12px rgb(223 255 0 / 0); }
+}
+
+@keyframes lockit-shimmer {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(110%); }
+}
+
+.lockit-map-card { animation: lockit-float 7s ease-in-out infinite; }
+.lockit-live-pin { animation: lockit-pulse 2.4s ease-out infinite; }
+.lockit-reveal { animation: lockit-shimmer 2.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lockit-map-card, .lockit-live-pin, .lockit-reveal { animation: none; }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

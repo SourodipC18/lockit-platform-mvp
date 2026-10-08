@@ -272,8 +272,10 @@ main ::selection { background: #2f4f4f; color: #ffffff; -webkit-text-fill-color:
 
 button, a { transition: transform 360ms cubic-bezier(.22,1,.36,1), box-shadow 360ms cubic-bezier(.22,1,.36,1), background-color 280ms ease, color 280ms ease, border-color 280ms ease, filter 360ms ease; }
 button:hover, a:hover { transform: translateY(-4px); filter: saturate(1.18); }
-@keyframes lockit-status-pop { 0% { opacity: 0; transform: translateY(-18px) scale(.94); } 55% { transform: translateY(3px) scale(1.02); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes lockit-status-pop { 0% { opacity: 0; transform: translateY(-24px) scale(.86); } 45% { transform: translateY(4px) scale(1.04); } 70% { transform: scale(.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes lockit-status-ring { 0% { box-shadow: 0 0 0 0 rgb(24 24 24 / .24); } 70% { box-shadow: 0 0 0 18px rgb(24 24 24 / 0); } 100% { box-shadow: 0 0 0 0 rgb(24 24 24 / 0); } }
 .lockit-status-banner, .lockit-access-status { animation: lockit-status-pop 650ms cubic-bezier(.22,1,.36,1) both; }
+.lockit-status-banner > div:first-child, .lockit-access-status::first-letter { animation: lockit-status-ring 1.4s ease-out both; }
 .lockit-confirmed-banner { background: #dfff00; color: #181818; }
 .lockit-cancelled-banner { background: #ffb4b4; color: #3b1010; }
 .lockit-status-confirmed > div { animation: lockit-status-pop 650ms cubic-bezier(.22,1,.36,1) both; }

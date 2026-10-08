@@ -44,7 +44,7 @@ export default function AccessPage() {
         }
         return
       }
-      if (current?.status !== 'confirmed') {
+      if (current?.status !== 'confirmed' && current?.status !== 'closed') {
         await fetch('/api/bookings', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

@@ -9,13 +9,13 @@ type Booking = { id: string; location: string; lockerSize: string; hours: number
 const locations: Location[] = [
   { name: 'Audencia Nantes', address: '8 route de la Jonelière · Audencia campus', distance: '350 m', available: 8, price: '€2', x: '42%', y: '32%' },
   { name: 'Nantes Station', address: '27 boulevard de Stalingrad', distance: '1.7 km', available: 12, price: '€2', x: '76%', y: '22%' },
-  { name: 'City Centre', address: '6 rue de la Fosse', distance: '2.1 km', available: 4, price: '€1', x: '61%', y: '47%' },
+  { name: 'City Centre', address: '6 rue de la Fosse', distance: '2.1 km', available: 0, price: '€1', x: '61%', y: '47%' },
   { name: 'Île de Nantes', address: '2 boulevard Léon Bureau', distance: '3.4 km', available: 7, price: '€3', x: '28%', y: '72%' },
   { name: 'Bouffay', address: '10 rue de la Juiverie', distance: '2.5 km', available: 5, price: '€1', x: '69%', y: '60%' },
   { name: 'Graslin', address: 'Place Graslin', distance: '2.8 km', available: 8, price: '€2', x: '43%', y: '56%' },
   { name: 'Talensac Market', address: 'Rue de Talensac', distance: '2.4 km', available: 6, price: '€1', x: '52%', y: '28%' },
   { name: 'Erdre Campus', address: 'Route de la Chapelle-sur-Erdre', distance: '1.1 km', available: 9, price: '€2', x: '35%', y: '18%' },
-  { name: 'Commerce', address: 'Place du Commerce', distance: '2.7 km', available: 3, price: '€1', x: '57%', y: '62%' },
+  { name: 'Commerce', address: 'Place du Commerce', distance: '2.7 km', available: 0, price: '€1', x: '57%', y: '62%' },
   { name: 'Hangar à Bananes', address: 'Quai des Antilles', distance: '4.1 km', available: 8, price: '€3', x: '18%', y: '78%' },
 ] 
 const lockerPrices: Record<string, number> = { Small: 1, Medium: 2, Large: 3 }
@@ -52,7 +52,7 @@ export default function Page() {
         const next = { ...current }
         const location = locations[Math.floor(Math.random() * locations.length)]
         const direction = Math.random() > 0.5 ? 1 : -1
-        next[location.name] = Math.min(location.available + 4, Math.max(1, (current[location.name] ?? location.available) + direction))
+        next[location.name] = Math.min(location.available + 4, Math.max(0, (current[location.name] ?? location.available) + direction))
         return next
       })
     }, 5000)
@@ -100,7 +100,7 @@ export default function Page() {
   }, [booking?.id, booking?.status])
 
   const selectedPrice = useMemo(() => (lockerPrices[form.lockerSize] ?? 2) * Number(form.hours), [form.lockerSize, form.hours])
-  const openBooking = (location: Location) => { setSelected(location); setBookingStep(1); setBooking(null); setForm({ lockerSize: 'Medium', hours: '3', name: 'Guest', email: '' }) }
+  const openBooking = (location: Location) => { if (location.available === 0 || liveAvailability[location.name] === 0) return; setSelected(location); setBookingStep(1); setBooking(null); setForm({ lockerSize: 'Medium', hours: '3', name: 'Guest', email: '' }) }
   const createBooking = async () => {
     if (!selected) return
     setIsSaving(true)

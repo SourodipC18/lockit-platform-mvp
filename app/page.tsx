@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, Check, ChevronDown, Clock3, Copy, LockKeyhole, MapPin, Menu, Moon, Navigation, QrCode, ShieldCheck, Sparkles, Sun, X } from 'lucide-react'
 
 type Location = { name: string; address: string; distance: string; available: number; price: string; x: string; y: string }
@@ -29,6 +29,7 @@ export default function Page() {
   const [heroActive, setHeroActive] = useState(false)
   const [heroScale, setHeroScale] = useState(1)
   const [bookingNotice, setBookingNotice] = useState<'confirmed' | 'cancelled' | null>(null)
+  const shownNoticeRef = useRef<string | null>(null)
   const [selected, setSelected] = useState<Location | null>(null)
   const [bookingStep, setBookingStep] = useState<0 | 1 | 2>(0)
   const [booking, setBooking] = useState<Booking | null>(null)
@@ -104,8 +105,15 @@ export default function Page() {
       if (response.ok) {
         const nextBooking = await response.json()
         setBooking(nextBooking)
-        if (nextBooking.status === 'confirmed' && booking?.status !== 'confirmed') setBookingNotice('confirmed')
-        if (nextBooking.status === 'closed' && booking?.status !== 'closed') setBookingNotice('cancelled')
+        const noticeKey = `${nextBooking.id}:${nextBooking.status}`
+        if (nextBooking.status === 'confirmed' && shownNoticeRef.current !== noticeKey) {
+          shownNoticeRef.current = noticeKey
+          setBookingNotice('confirmed')
+        }
+        if (nextBooking.status === 'closed' && shownNoticeRef.current !== noticeKey) {
+          shownNoticeRef.current = noticeKey
+          setBookingNotice('cancelled')
+        }
       }
     }
     const timer = window.setInterval(syncBooking, 1800)

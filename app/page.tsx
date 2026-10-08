@@ -91,7 +91,11 @@ export default function Page() {
     if (!booking?.id) return
     const syncBooking = async () => {
       const response = await fetch(`/api/bookings?id=${encodeURIComponent(booking.id)}`, { cache: 'no-store' })
-      if (response.ok) setBooking(await response.json())
+      if (response.ok) {
+        const nextBooking = await response.json()
+        setBooking(nextBooking)
+        if (nextBooking.status === 'confirmed') setSelected(null)
+      }
     }
     const timer = window.setInterval(syncBooking, 1800)
     return () => window.clearInterval(timer)
@@ -105,9 +109,7 @@ export default function Page() {
     const response = await fetch('/api/bookings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'create', location: selected.name, lockerSize: form.lockerSize, hours: form.hours, name: form.name }) })
     if (response.ok) {
       const created = await response.json()
-      const startedResponse = await fetch('/api/bookings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'start', id: created.id }) })
-      const started = startedResponse.ok ? await startedResponse.json() : created
-      setBooking({ ...created, ...started, location: created.location, lockerSize: created.lockerSize, hours: created.hours, name: created.name })
+      setBooking(created)
       setBookingStep(2)
     }
     setIsSaving(false)

@@ -112,6 +112,7 @@ export default function Page() {
         }
         if (nextBooking.status === 'closed' && shownNoticeRef.current !== noticeKey) {
           shownNoticeRef.current = noticeKey
+          setUnlockBooking(null)
           setBookingNotice('cancelled')
         }
       }

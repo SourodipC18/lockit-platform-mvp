@@ -277,6 +277,10 @@ button:hover, a:hover { transform: translateY(-4px); filter: saturate(1.18); }
 .lockit-status-banner, .lockit-access-status { animation: lockit-status-pop 650ms cubic-bezier(.22,1,.36,1) both; }
 .lockit-status-banner > div:first-child, .lockit-access-status::first-letter { animation: lockit-status-ring 1.4s ease-out both; }
 .lockit-confirmed-banner { background: #dfff00; color: #181818; }
+.lockit-unlock-button { transition: transform 240ms cubic-bezier(.22,1,.36,1), box-shadow 240ms ease; }
+.lockit-unlock-button:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 28px rgb(223 255 0 / .28); }
+.lockit-unlock-button:active { transform: scale(.97); }
+.lockit-cancel-button:hover { color: #7d2020; }
 .lockit-cancelled-banner { background: #ffb4b4; color: #3b1010; }
 .lockit-status-confirmed > div { animation: lockit-status-pop 650ms cubic-bezier(.22,1,.36,1) both; }
 

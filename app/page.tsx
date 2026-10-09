@@ -136,7 +136,7 @@ export default function Page() {
   const publicAppOrigin = 'https://v0-lockit-prototype-openbeta.vercel.app'
   const accessUrl = booking ? `${publicAppOrigin}/access?id=${encodeURIComponent(booking.id)}` : ''
   const qrImageUrl = accessUrl ? `https://quickchart.io/qr?text=${encodeURIComponent(accessUrl)}&size=520&margin=8&ecLevel=H` : ''
-  const unlockUrl = unlockBooking ? `${publicAppOrigin}/access?id=${encodeURIComponent(unlockBooking.id)}&action=close` : ''
+  const unlockUrl = unlockBooking ? `${publicAppOrigin}/access?id=${encodeURIComponent(unlockBooking.id)}&action=unlock` : ''
   const unlockQrImageUrl = unlockUrl ? `https://quickchart.io/qr?text=${encodeURIComponent(unlockUrl)}&size=520&margin=8&ecLevel=H` : ''
   const copyCode = async () => { if (!booking) return; await navigator.clipboard?.writeText(accessUrl); setCopied(true); window.setTimeout(() => setCopied(false), 1600) }
 

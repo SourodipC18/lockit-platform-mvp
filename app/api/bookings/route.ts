@@ -7,10 +7,14 @@ export async function POST(request: Request) {
   const body = await request.json()
   const { action = 'create', id, location, lockerSize, hours, name, email } = body
 
-  if (action === 'close') {
+  if (action === 'close' || action === 'unlock') {
     if (!id) return NextResponse.json({ error: 'Booking ID is required' }, { status: 400 })
     const result = await pool.query(
-      `UPDATE lockit_bookings SET status = 'closed' WHERE id = $1 AND status <> 'closed' RETURNING id, status`,
+      `UPDATE lockit_bookings
+       SET status = 'closed',
+           overtime_fee_cents = GREATEST(overtime_fee_cents, CASE WHEN confirmed_at IS NULL THEN 0 ELSE GREATEST(0, CEIL(EXTRACT(EPOCH FROM (NOW() - confirmed_at)) / 3600)::int) * 200 END)
+       WHERE id = $1 AND status <> 'closed'
+       RETURNING id, status, overtime_fee_cents AS "overtimeFeeCents", confirmed_at AS "confirmedAt"`,
       [id],
     )
     if (!result.rows[0]) return NextResponse.json({ error: 'Booking not found or already closed' }, { status: 404 })
